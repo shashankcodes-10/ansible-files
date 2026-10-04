@@ -1,0 +1,13 @@
+[servers]
+ubuntu1 ansible_host=35.94.238.155
+ubuntu2 ansible_host=35.88.27.146
+ubuntu3 ansible_host=34.220.92.153
+
+ubuntu1 ansible_user=ubuntu
+ubuntu2 ansible_user=ubuntu
+ubuntu3 ansible_user=ubuntu
+
+[servers:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_private_key_file=/home/ubuntu/ansible_servers_keys
+ansible_host_key_checking=false
