@@ -1,0 +1,19 @@
+- name: installing multiple packages
+  hosts: servers
+  become: yes
+
+  vars:
+    packages:
+      - jq
+      - wget
+      - nginx
+      - curl
+      - tree
+      - unzip
+
+  tasks:
+    - name: installing packages
+      apt: 
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages }}"      
