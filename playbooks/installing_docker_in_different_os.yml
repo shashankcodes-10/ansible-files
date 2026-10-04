@@ -1,0 +1,39 @@
+- name: installing docker in different os
+  hosts: servers
+  become: yes
+
+  tasks:
+    - name: updating packages in ubuntu
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+      when: ansible_facts["os_family"]=="Debian"
+
+    - name: installing docker in ubuntu
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+      when: ansible_facts["os_family"]=="Debian"
+
+    - name: updating packages in redhat and amazon
+      dnf:
+        update_cache: yes
+      when: ansible_facts["os_family"]=="RedHat"
+
+    - name: installing docker in amazon
+      dnf:
+        name: docker
+        state: present
+        update_cache: yes
+      when:  ansible_facts["distribution"]=="Amazon"
+
+    - name: add docker repo in RedHat
+      command: "sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo"
+      when: ansible_facts["distribution"]=="RedHat"
+
+    - name: installing docker in RedHat
+      dnf:
+        name: docker-ce
+        state: present
+      when: ansible_facts["distribution"]=="RedHat"
