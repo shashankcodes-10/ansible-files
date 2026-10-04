@@ -1,0 +1,10 @@
+- name: print custom variables
+  hosts: servers
+
+  vars:
+    user: shashank
+
+  tasks:
+    - name: printing name
+      debug:
+        msg: "hello my name is {{ user }}"  
