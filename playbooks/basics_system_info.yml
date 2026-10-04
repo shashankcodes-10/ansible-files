@@ -1,0 +1,26 @@
+- name: Basic information of the servers
+  hosts: servers
+  gather_facts: yes
+
+  tasks:
+
+    - name: Show hostname
+      command: hostname
+
+    - name: Show current date
+      command: date
+
+    - name: Show system uptime
+      command: uptime
+
+    - name: Show memory usage
+      command: free -h
+
+    - name: Show disk usage
+      command: df -h
+
+    - name: Show CPU information
+      command: nproc
+
+    - name: Show operating system
+      command: cat /etc/os-release
