@@ -1,0 +1,38 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/docker
+
+
+- name: update packages
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: install docker
+  apt:
+    name: "*"
+    state: present
+  notify: restart docker   
+  
+- name: add users to groups
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: true
+  loop: "{{ docker_users }}"
+
+- name: register docker version
+  command: docker --version
+  register: docker_version
+
+- name: show docker version
+  debug:
+    msg: "{{docker_version}}"
+
+- name: register running containers
+  command: docker ps
+  register: running_containers
+
+- name: show running containers
+  debug:
+    msg: "{{ running_containers}}"
